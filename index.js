@@ -37,6 +37,8 @@ app.post('/register', async (req, res) => {
     if (!data.email || !data.password) {
         return res.status(400).json({ message: 'Invalid request data' });
     }
+    const oldUser = await UserModel.findOne({email: data.email});
+    if (oldUser) return res.status(409).json({ message: 'Conflict: Duplicate data' });
     const verificationCode = await verifyEmailCode(data.email);
     const verificationCodeExpires = new Date(Date.now() + 60000);
     const passw = data.password;
