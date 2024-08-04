@@ -23,11 +23,20 @@ const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
 
+const allowedOrigins = ['https://smartparkinghub.onrender.com'];
+
 app.use(cors({
-    origin: 'https://smartparkinghub.onrender.com',
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,POST,HEAD,PUT,PATCH,DELETE',
     credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
