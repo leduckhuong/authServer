@@ -23,7 +23,11 @@ const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://smartparkinghub.onrender.com',
+    methods: 'GET,POST,HEAD,PUT,PATCH,DELETE',
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
