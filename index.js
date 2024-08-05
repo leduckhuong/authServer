@@ -23,7 +23,7 @@ const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
 
-var whitelist = ['https://chat-q4eo.onrender.com', 'http://example2.com']
+var whitelist = ['http://example2.com']
 var corsOptions = {
     origin: whitelist
 }
