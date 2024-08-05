@@ -1,6 +1,5 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const cryptojs = require('crypto-js');
 
@@ -22,13 +21,6 @@ const app = express();
 const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
-
-var whitelist = ['http://example2.com']
-var corsOptions = {
-    origin: whitelist
-}
-
-app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
