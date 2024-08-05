@@ -23,12 +23,16 @@ const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
 
-const allowedOrigins = ['http://127.0.0.1'];
-
-const corsOptions = {
-    origin: 'http://test.com',
-    methods: ['GET' ,'POST', 'PUT', 'HEAD', 'PATCH', 'DELETE']
-};
+var whitelist = ['http://example1.com', 'http://example2.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(cors(corsOptions));
 
