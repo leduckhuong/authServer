@@ -23,19 +23,14 @@ const port = process.env.AUTH_SERVER_PORT || 3333;
 
 db.connect();
 
-const allowedOrigins = ['https://smartparkinghub.onrender.com'];
+const allowedOrigins = ['http://127.0.0.1'];
 
-app.use(cors({
-    origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: 'GET,POST,HEAD,PUT,PATCH,DELETE',
-    credentials: true
-}));
+const corsOptions = {
+    origin: 'http://test.com',
+    methods: ['GET' ,'POST', 'PUT', 'HEAD', 'PATCH', 'DELETE']
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -228,7 +223,6 @@ app.post('/register-employ', async (req, res) => {
     }
     try {
         const user = await EmployModel.create(data);
-        const uid = user._id.toString();
         await UserModel.findOneAndUpdate({ email: user.email }, { level: 99 });
         return res.sendStatus(200);
     } catch (error) {
@@ -251,6 +245,11 @@ app.delete('/logout', verifyToken, async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
+})
+
+app.get('/test', async (req, res) => {
+    console.log('Is test');
+    res.status(200).json({ test: 'OK' });
 })
 
 app.listen(port, () => {
