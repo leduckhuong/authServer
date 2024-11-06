@@ -23,7 +23,7 @@ async function sendVerificationEmail(toEmail, verificationCode) {
     try {
         const mailForm = await renderTemplate('../views/email.ejs', { verificationCode });
         const mailOptions = {
-            from: `SMART PARKING APP <${process.env.ADMIN_EMAIL}>`,
+            from: `CHAT APP <${process.env.ADMIN_EMAIL}>`,
             to: toEmail,
             subject: 'Your Verification Code',
             html: mailForm
