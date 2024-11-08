@@ -1,4 +1,8 @@
+const UserModel = require('../models/User.model');
+const generateToken = require('../utils/generateToken.util');
+const updateRefreshToken = require('../utils/updateRefreshToken.util');
 
+const compare = require('../utils/compare.util');
 
 class Login {
     async index (req, res) {

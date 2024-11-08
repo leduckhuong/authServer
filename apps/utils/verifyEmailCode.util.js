@@ -21,7 +21,7 @@ async function renderTemplate(templatePath, data) {
 }
 async function sendVerificationEmail(toEmail, verificationCode) {
     try {
-        const mailForm = await renderTemplate('../views/email.ejs', { verificationCode });
+        const mailForm = await renderTemplate('../../views/email.ejs', { verificationCode });
         const mailOptions = {
             from: `CHAT APP <${process.env.ADMIN_EMAIL}>`,
             to: toEmail,

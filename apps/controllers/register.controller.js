@@ -1,3 +1,8 @@
+const cryptojs = require('crypto-js');
+
+const UserModel = require('../models/User.model');
+
+const verifyEmailCode = require('../utils/verifyEmailCode.util');
 const generateToken = require('../utils/generateToken.util');
 const updateRefreshToken = require('../utils/updateRefreshToken.util');
 
